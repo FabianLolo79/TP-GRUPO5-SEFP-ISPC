@@ -14,7 +14,7 @@
   </li>
 
   <li>
-    Fabián Enrique García
+    Fabián Enrique García, DNI: 27671037, email: garciafabianenrique79@gmail.com, https://github.com/FabianLolo79 -
   </li>
 
   <li>
