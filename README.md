@@ -10,11 +10,11 @@
   </li>
 
   <li>
-    Eliana Melina Britez
+    Eliana Melina Britez 
   </li>
 
   <li>
-    Fabián Enrique García, DNI: 27671037, email: garciafabianenrique79@gmail.com, https://github.com/FabianLolo79 -
+    Fabián Enrique García, DNI: 27671037, email: garciafabianenrique79@gmail.com, https://github.com/FabianLolo79/solucionesPracticas
   </li>
 
   <li>
