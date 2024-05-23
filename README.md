@@ -10,7 +10,7 @@
   </li>
 
   <li>
-    Eliana Melina Britez
+    Eliana Melina Britez, DNI 35473827, elibritez_686@hotmail.com,
   </li>
 
   <li>
