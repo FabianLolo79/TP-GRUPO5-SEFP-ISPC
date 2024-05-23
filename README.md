@@ -18,7 +18,7 @@
   </li>
 
   <li>
-    Pablo Melero
+    Pablo Melero, DNI: 44872194, email:pablomelero12@gmail.com, https://github.com/loko1676
   </li>
   
 </ol>
