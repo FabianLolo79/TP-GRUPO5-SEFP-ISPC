@@ -10,11 +10,7 @@
   </li>
 
   <li>
-<<<<<<< HEAD
-    Eliana Melina Britez 
-=======
     Eliana Melina Britez, DNI 35473827, elibritez_686@hotmail.com,https://github.com/britezeli9
->>>>>>> 47e6d7c01cbfa3921562f763155a665582926cac
   </li>
 
   <li>
