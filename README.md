@@ -3,6 +3,11 @@
 <h3>ISPC</h3>
 <p>Base de datos,  programación y ética deontológica profesional</p>
 
+
+<h1>Descripción del Proyecto</h1>
+<p>Decidimos desarrollar un software con base de datos sobre una colección de vinilos</p>
+
+
 <p>Nombre de integrantes</p>
 <ol>
   <li>
