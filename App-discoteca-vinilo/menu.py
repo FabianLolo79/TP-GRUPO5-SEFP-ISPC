@@ -1,5 +1,8 @@
 import  agregar_vinilo
 import modificar_vinilo
+import eliminar_vinilo
+import mostrar_discografia
+import buscar
 
 def menu():
     while True:
@@ -19,8 +22,15 @@ def menu():
 
         elif opcion == "2":
             modificar_vinilo.modificar_vinilo()
-
-        # Falta agregar las demás opciones de menú
+            
+        elif opcion == "3":
+            eliminar_vinilo.eliminar_vinilo()
+            
+        elif opcion == "4":
+            mostrar_discografia.mostrar_discografia()
+            
+        elif opcion == "5":
+            buscar.buscar()
 
         elif opcion == "6":
             print("¡Hasta luego! \n")
