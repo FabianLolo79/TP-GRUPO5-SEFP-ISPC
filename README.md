@@ -18,6 +18,15 @@ Con nuestra base de datos vamos a tener al alcance de un click detalles que nos 
 
 <hr>
 
+<p> MODULARIZACIION DE NUESTRO PROYECTO
+Esta compuesto por 7 archivos de python 
+ 1- app.py: Es la carpeta principal, nos la bienvenida  a nuetro proyecto y también nos da paso al menú principal.
+ 2- menu.py: Esta carpeta contiene el menú principal de la app, es la que va a contener  las demás funciones del nuetro proyecto.
+ 3- agregar_vinilo.py: Aquí esta la operacion para sumar un vinilo a nuestra base de datos.
+ 4- buscar.py: Aquí está la opción para buscar un elemento en particular usando los filtros. 
+ 5- eliminar_vinilo.py: Desde acá podemos borrar un elemento que ya pertenece a nuetra colección o también alguno que fue mal cargado.
+ 6- modificar_vinilo.py: Podemos modificar datosde cada disco. Ya sea completar datos aún no cargados o mal cargados. 
+ 7- mostrar_discografia.py: Aqui tenemos la opción de ver la discografía completa.
 
 <hr>
 
