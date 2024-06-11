@@ -1,5 +1,8 @@
 # Diccionario para almacenar la discografía
 discografia = {}
+import eliminar_vinilo
+import mostrar_discografia
+import buscar_por_titulo
 
 def menu():
     # Loop infinito para mostrar el menú y procesar las opciones
@@ -17,6 +20,17 @@ def menu():
 
         # Pedir al usuario que ingrese una opción
         opcion = input("Ingrese una opción: ")
+        print("=" * 27)   
+        print("MEMÚ DE OPCIONES: \n") 
+        print("1. Agregar nuevo vinilo") 
+        print("2. Modificar vinilo")
+        print("3. Eliminar vinilo")
+        print("4. Mostrar discografia")
+        print("5. Buscar vinilo por titulo")
+        print("6. Salir \n")
+        print("=" * 27)
+
+        opcion = input("Ingrese una opción: \n")
 
         # Procesar la opción seleccionada
         if opcion == "1":
@@ -34,6 +48,8 @@ def menu():
         elif opcion == "5":
             # Buscar un disco por título
             buscar_disco_por_titulo()
+            buscar_por_titulo.buscar_por_titulo()
+
         elif opcion == "6":
             # Salir del programa
             print("¡Hasta luego!")
