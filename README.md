@@ -21,7 +21,7 @@ Con nuestra base de datos vamos a tener al alcance de un click detalles que nos 
 <hr>
 
 <p> MODULARIZACION DE NUESTRO PROYECTO
-Esta compuesto por 7 archivos de python 
+Está compuesto por 7 archivos de python 
 <p> 1- app.py: Es la carpeta principal, nos la bienvenida  a nuetro proyecto y también nos da paso al menú principal.
 <p>2- menu.py: Esta carpeta contiene el menú principal de la app, es la que va a contener  las demás funciones del nuetro proyecto.
 <p>3- agregar_vinilo.py: Aquí esta la operacion para sumar un vinilo a nuestra base de datos.

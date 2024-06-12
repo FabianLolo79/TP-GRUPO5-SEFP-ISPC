@@ -175,3 +175,45 @@ def modificar_disco():
             break
     else:
         print("No se encontró ningún disco con ese título.")
+
+def eliminar_disco():
+    # Eliminar un disco de la discografía
+    print("=" * 27)
+    print("Opción 3 elegida - Eliminar disco")
+    print("=" * 27, "\n")
+    
+    # Pedir al usuario que ingrese el título del disco a eliminar
+    titulo_buscar = input("Ingrese el título del disco que desea eliminar: ").casefold()
+    
+    # Buscar el disco en la discografía
+    for titulo, disco in discografia.items():
+        if titulo_buscar == titulo.casefold():
+            # Eliminar el disco de la discografía
+            del discografia[titulo]
+            print("Disco eliminado exitosamente")
+            break
+    else:
+        print("No se encontró ningún disco con ese título.")
+
+
+def mostrar_discografia():
+    # Mostrar la discografía completa
+    print("=" * 27)
+    print("Opción 4 elegida - Mostrar discografía")
+    print("=" * 27, "\n")
+    
+    # Iterar sobre la discografía y mostrar cada disco
+    for titulo, disco in discografia.items():
+        print(f"** Disco: {titulo} **")
+        print(f"Artista: {disco[2]}")
+        print(f"Año: {disco[1]}")
+        print(f"Género: {disco[3]}")
+        print(f"Precio: {disco[4]}")
+        print(f"Imagen de portada: {disco[5][0]} y {disco[5][1]}")
+        print("Canciones lado A:")
+        for cancion in disco[6]:
+            print(f"  {cancion[0]} - {cancion[1]}")
+        print("Canciones lado B:")
+        for cancion in disco[7]:
+            print(f"  {cancion[0]} - {cancion[1]}")
+        print()
