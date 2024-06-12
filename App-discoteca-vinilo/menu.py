@@ -1,8 +1,5 @@
 # Diccionario para almacenar la discografía
 discografia = {}
-import eliminar_vinilo
-import mostrar_discografia
-import buscar_por_titulo
 
 def menu():
     # Loop infinito para mostrar el menú y procesar las opciones
@@ -217,3 +214,32 @@ def mostrar_discografia():
         for cancion in disco[7]:
             print(f"  {cancion[0]} - {cancion[1]}")
         print()
+
+def buscar_disco_por_titulo():
+    # Buscar un disco por título
+    print("=" * 27)
+    print("Opción 5 elegida - Buscar disco por título")
+    print("=" * 27, "\n")
+    
+    # Pedir al usuario que ingrese el título del disco a buscar
+    titulo_buscar = input("Ingrese el título del disco a buscar: ").casefold()
+    
+    # Buscar el disco en la discografía
+    for titulo, disco in discografia.items():
+        if titulo_buscar == titulo.casefold():
+            # Mostrar los datos del disco encontrado
+            print(f"** Disco: {titulo} **")
+            print(f"Artista: {disco[2]}")
+            print(f"Año: {disco[1]}")
+            print(f"Género: {disco[3]}")
+            print(f"Precio: {disco[4]}")
+            print(f"Imagen de portada: {disco[5][0]} y {disco[5][1]}")
+            print("Canciones lado A:")
+            for cancion in disco[6]:
+                print(f"  {cancion[0]} - {cancion[1]}")
+            print("Canciones lado B:")
+            for cancion in disco[7]:
+                print(f"  {cancion[0]} - {cancion[1]}")
+            break
+    else:
+        print("No se encontró ningún disco con ese título.")
