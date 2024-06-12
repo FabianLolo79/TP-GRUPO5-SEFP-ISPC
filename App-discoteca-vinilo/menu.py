@@ -1,20 +1,10 @@
 # Diccionario para almacenar la discografía
+import base_de_datos as bd
 discografia = {}
 
 def menu():
     # Loop infinito para mostrar el menú y procesar las opciones
     while True:
-        print("\n******")
-        print("Bienvenido a la discografía del grupo 5")
-        print("******")
-        print("1. Agregar nuevo disco") 
-        print("2. Modificar disco")
-        print("3. Eliminar disco")
-        print("4. Mostrar discografía")
-        print("5. Buscar disco por título")
-        print("6. Salir")
-        print("******\n")
-
         # Pedir al usuario que ingrese una opción
         opcion = input("Ingrese una opción: ")
         print("=" * 27)   
@@ -45,7 +35,6 @@ def menu():
         elif opcion == "5":
             # Buscar un disco por título
             buscar_disco_por_titulo()
-            buscar_por_titulo.buscar_por_titulo()
 
         elif opcion == "6":
             # Salir del programa
@@ -82,23 +71,39 @@ def agregar_nuevo_disco():
 
     # Pedir al usuario que ingrese las canciones del lado A
     while True:
-        cancion_numero = input("Ingrese el número de la canción para el lado A (o 'fin' para terminar): ")
-        if cancion_numero.lower() == 'fin':
+        cancion_nombre = input("Ingrese el nombre de la canción para el lado A (o 'fin' para terminar): ")
+        if cancion_nombre.lower() == 'fin':
             break
-        cancion_nombre = input("Ingrese el nombre de la canción: ")
-        disco[6].append((cancion_numero, cancion_nombre))
+        disco[6].append((cancion_nombre))
 
     # Pedir al usuario que ingrese las canciones del lado B
     while True:
-        cancion_numero = input("Ingrese el número de la canción para el lado B (o 'fin' para terminar): ")
-        if cancion_numero.lower() == 'fin':
+        #cancion_numero = input("Ingrese el número de la canción para el lado B (o 'fin' para terminar): ")
+        cancion_nombre = input("Ingrese el nombre de la canción para el lado B (o 'fin' para terminar): ")
+        if cancion_nombre.lower() == 'fin':
             break
-        cancion_nombre = input("Ingrese el nombre de la canción: ")
-        disco[7].append((cancion_numero, cancion_nombre))
+        disco[7].append((cancion_nombre))
 
     # Agregar el disco a la discografía
-    discografia[titulo] = disco
+    # discografia[titulo] = disco
+
+    query = ("INSERT INTO discovinilo(titulo, genero, precio, anio) VALUES (%s, %s, %s, %s)")
+    valores = (titulo, genero, precio, anio)
+
+    quer = ("INSERT INTO artista(nombre, apellido) VALUES (%s, %s) ")
+    val = (nombre_artista, apellido_artista)
+
+    q = ("INSERT INTO canciones(nombre, lado) VALUES (%s, %s)" )
+    
+    valor = (disco[6])
+    
+    bd.cursor.execute(query, valores)
+    bd.conn.commit()
+
+
     print("Disco agregado exitosamente")
+
+
     
 def modificar_disco():
     # Modificar un disco existente
