@@ -6,7 +6,6 @@ def menu():
     # Loop infinito para mostrar el menú y procesar las opciones
     while True:
         # Pedir al usuario que ingrese una opción
-        opcion = input("Ingrese una opción: ")
         print("=" * 27)   
         print("MEMÚ DE OPCIONES: \n") 
         print("1. Agregar nuevo vinilo") 
@@ -45,6 +44,7 @@ def menu():
             print("Opción incorrecta. Por favor, ingrese una opción válida.")
 
 def agregar_nuevo_disco():
+
     # Agregar un nuevo disco a la discografía
     print("=" * 27)
     print("Opción 1 elegida - Agregar nuevo disco")
@@ -74,7 +74,7 @@ def agregar_nuevo_disco():
         cancion_nombre = input("Ingrese el nombre de la canción para el lado A (o 'fin' para terminar): ")
         if cancion_nombre.lower() == 'fin':
             break
-        disco[6].append((cancion_nombre))
+        disco[6].append(cancion_nombre)
 
     # Pedir al usuario que ingrese las canciones del lado B
     while True:
@@ -82,28 +82,28 @@ def agregar_nuevo_disco():
         cancion_nombre = input("Ingrese el nombre de la canción para el lado B (o 'fin' para terminar): ")
         if cancion_nombre.lower() == 'fin':
             break
-        disco[7].append((cancion_nombre))
+        disco[7].append(cancion_nombre)
 
-    # Agregar el disco a la discografía
-    # discografia[titulo] = disco
+    # Agregar el disco a la base de datos
+    bd.cursor.execute("INSERT INTO imagen_portada (imagen_cara, imagen_contraCara) VALUES (%s, %s)", (imagen_cara, imagen_contra_cara))
+    idImagen_portada = bd.cursor.lastrowid
 
-    query = ("INSERT INTO discovinilo(titulo, genero, precio, anio) VALUES (%s, %s, %s, %s)")
-    valores = (titulo, genero, precio, anio)
+    bd.cursor.execute("INSERT INTO artista (nombre, apellido) VALUES (%s, %s)", (nombre_artista, apellido_artista))
+    idArtista = bd.cursor.lastrowid
 
-    quer = ("INSERT INTO artista(nombre, apellido) VALUES (%s, %s) ")
-    val = (nombre_artista, apellido_artista)
+    bd.cursor.execute("INSERT INTO discovinilo (titulo, genero, precio, anio, idArtista, idImagen_portada) VALUES (%s, %s, %s, %s, %s, %s)", (titulo, genero, precio, anio, idArtista, idImagen_portada))
+    idDiscoVinilo = bd.cursor.lastrowid
 
-    q = ("INSERT INTO canciones(nombre, lado) VALUES (%s, %s)" )
-    
-    valor = (disco[6])
-    
-    bd.cursor.execute(query, valores)
-    bd.conn.commit()
+    for cancion in disco[6]:
+        bd.cursor.execute("INSERT INTO canciones (nombre, lado, idDiscoVinilo) VALUES (%s, 'A', %s)", (cancion, idDiscoVinilo))
 
+    for cancion in disco[7]:
+        bd.cursor.execute("INSERT INTO canciones (nombre, lado, idDiscoVinilo) VALUES (%s, 'B', %s)", (cancion, idDiscoVinilo))
+
+    bd.cnx.commit()
+    bd.cerrarConexion
 
     print("Disco agregado exitosamente")
-
-
     
 def modificar_disco():
     # Modificar un disco existente
@@ -171,12 +171,17 @@ def modificar_disco():
                     cancion_nombre = input("Ingrese el nombre de la canción: ")
                     disco[7].append((cancion_numero, cancion_nombre))
 
+                # Modificar los campos del disco
+                bd.cursor.execute("UPDATE discovinilo SET titulo = %s, anio = %s, artista = %s, genero = %s, precio = %s WHERE titulo = %s", (titulo_nuevo, anio_nuevo, artista, genero_nuevo, precio_nuevo, titulo_buscar))
+                bd.cnx.commit()
                 print("Disco modificado exitosamente")
+                
             else:
                 print("No se realizaron cambios en el disco")
             break
     else:
         print("No se encontró ningún disco con ese título.")
+        
 
 def eliminar_disco():
     # Eliminar un disco de la discografía
@@ -192,7 +197,12 @@ def eliminar_disco():
         if titulo_buscar == titulo.casefold():
             # Eliminar el disco de la discografía
             del discografia[titulo]
+            
+           # Eliminar el disco de la base de datos
+            bd.cursor.execute("DELETE FROM discovinilo WHERE titulo = %s", (titulo_buscar,))
+            bd.cnx.commit()
             print("Disco eliminado exitosamente")
+            
             break
     else:
         print("No se encontró ningún disco con ese título.")
@@ -203,48 +213,79 @@ def mostrar_discografia():
     print("=" * 27)
     print("Opción 4 elegida - Mostrar discografía")
     print("=" * 27, "\n")
-    
-    # Iterar sobre la discografía y mostrar cada disco
-    for titulo, disco in discografia.items():
-        print(f"** Disco: {titulo} **")
-        print(f"Artista: {disco[2]}")
-        print(f"Año: {disco[1]}")
-        print(f"Género: {disco[3]}")
-        print(f"Precio: {disco[4]}")
-        print(f"Imagen de portada: {disco[5][0]} y {disco[5][1]}")
-        print("Canciones lado A:")
-        for cancion in disco[6]:
-            print(f"  {cancion[0]} - {cancion[1]}")
-        print("Canciones lado B:")
-        for cancion in disco[7]:
-            print(f"  {cancion[0]} - {cancion[1]}")
+
+    # Mostrar la discografía completa
+    bd.cursor.execute("""
+        SELECT 
+            dv.titulo, 
+            a.nombre, 
+            a.apellido, 
+            dv.anio, 
+            dv.genero, 
+            dv.precio, 
+            ip.imagen_cara, 
+            ip.imagen_contraCara
+        FROM 
+            discovinilo dv
+        INNER JOIN 
+            artista a ON dv.idArtista = a.idArtista
+        INNER JOIN 
+            imagen_portada ip ON dv.idImagen_portada = ip.idImagen_portada
+        WHERE 
+            dv.idArtista IS NOT NULL AND 
+            dv.idImagen_portada IS NOT NULL
+        """)
+    resultados = bd.cursor.fetchall()
+    for resultado in resultados:
+        print(f"** Disco: {resultado[0]} **")
+        print(f"Artista: {resultado[1]} {resultado[2]}")
+        print(f"Año: {resultado[3]}")
+        print(f"Género: {resultado[4]}")
+        print(f"Precio: {resultado[5]}")
+        print(f"Imagen de la cara: {resultado[6]}")
+        print(f"Imagen de la contracara: {resultado[7]}")
         print()
+
 
 def buscar_disco_por_titulo():
     # Buscar un disco por título
     print("=" * 27)
     print("Opción 5 elegida - Buscar disco por título")
     print("=" * 27, "\n")
-    
+
     # Pedir al usuario que ingrese el título del disco a buscar
     titulo_buscar = input("Ingrese el título del disco a buscar: ").casefold()
-    
-    # Buscar el disco en la discografía
-    for titulo, disco in discografia.items():
-        if titulo_buscar == titulo.casefold():
-            # Mostrar los datos del disco encontrado
-            print(f"** Disco: {titulo} **")
-            print(f"Artista: {disco[2]}")
-            print(f"Año: {disco[1]}")
-            print(f"Género: {disco[3]}")
-            print(f"Precio: {disco[4]}")
-            print(f"Imagen de portada: {disco[5][0]} y {disco[5][1]}")
-            print("Canciones lado A:")
-            for cancion in disco[6]:
-                print(f"  {cancion[0]} - {cancion[1]}")
-            print("Canciones lado B:")
-            for cancion in disco[7]:
-                print(f"  {cancion[0]} - {cancion[1]}")
-            break
+
+    # Buscar el disco en la base de datos
+    bd.cursor.execute("""
+        SELECT 
+            dv.titulo, 
+            a.nombre, 
+            a.apellido, 
+            dv.anio, 
+            dv.genero, 
+            dv.precio, 
+            ip.imagen_cara, 
+            ip.imagen_contraCara
+        FROM 
+            discovinilo dv
+        INNER JOIN 
+            artista a ON dv.idArtista = a.idArtista
+        INNER JOIN 
+            imagen_portada ip ON dv.idImagen_portada = ip.idImagen_portada
+        WHERE 
+            dv.titulo = %s AND 
+            dv.idArtista IS NOT NULL AND 
+            dv.idImagen_portada IS NOT NULL
+    """, (titulo_buscar,))
+    resultado = bd.cursor.fetchone()
+    if resultado:
+        print(f"** Disco: {resultado[0]} **")
+        print(f"Artista: {resultado[1]} {resultado[2]}")
+        print(f"Año: {resultado[3]}")
+        print(f"Género: {resultado[4]}")
+        print(f"Precio: {resultado[5]}")
+        print(f"Imagen de la cara: {resultado[6]}")
+        print(f"Imagen de la contracara: {resultado[7]}")
     else:
         print("No se encontró ningún disco con ese título.")
