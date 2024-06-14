@@ -2,7 +2,7 @@ import mysql.connector
 
 HOST = "localhost"
 USER = "root"
-PASSWORD = "45320145613LOko."
+PASSWORD = "pachula"    # "45320145613LOko."
 BD = "colecciondevinilos"
 
 # Conectarse a la base de datos

@@ -1,9 +1,10 @@
 # Diccionario para almacenar la discografía
 import base_de_datos as bd
-discografia = {}
+#discografia = {}
 
-# La función menu() muestra un menú con las opciones disponibles y pide al usuario que ingrese una opción.
-# Luego, dependiendo de la opción seleccionada, llama a la función correspondiente
+""" La función menu() muestra un menú con las opciones disponibles y pide al usuario que ingrese una opción.
+    Luego, dependiendo de la opción seleccionada, llama a la función correspondiente
+"""
 
 def menu():
     # Loop infinito para mostrar el menú y procesar las opciones
@@ -48,9 +49,10 @@ def menu():
             print("Opción incorrecta. Por favor, ingrese una opción válida.")
 
 
-# La función agregar_nuevo_disco() pide al usuario que ingrese la información del disco, como el nombre del artista, el título del disco,
-# el año, el género, el precio, la imagen de la cara y la contracara. Luego, agrega el disco a la base de datos y pide al usuario que ingrese 
-# las canciones del lado A y B. Finalmente, agrega las canciones a la base de datos y confirma que el disco se agregó exitosamente.
+""" La función agregar_nuevo_disco() pide al usuario que ingrese la información del disco, como el nombre del artista, el título del disco,
+    el año, el género, el precio, la imagen de la cara y la contracara. Luego, agrega el disco a la base de datos y pide al usuario que ingrese 
+    las canciones del lado A y B. Finalmente, agrega las canciones a la base de datos y confirma que el disco se agregó exitosamente.
+"""
 def agregar_nuevo_disco():
 
     # Agregar un nuevo disco a la discografía
@@ -107,9 +109,11 @@ def agregar_nuevo_disco():
     print("Disco agregado exitosamente")
 
 
-# La función modificar_disco() pide al usuario que ingrese el título del disco que desea modificar.
-# Luego, busca el disco en la base de datos y pide al usuario que ingrese los nuevos datos del disco.
-# Finalmente, actualiza la información del disco en la base de datos y confirma que el disco se modificó exitosamente.
+""" La función modificar_disco() pide al usuario que ingrese el título del disco que desea modificar.
+    Luego, busca el disco en la base de datos y pide al usuario que ingrese los nuevos datos del disco.
+    Finalmente, actualiza la información del disco en la base de datos y confirma que el disco se modificó exitosamente.
+"""
+
 def modificar_disco():
     # Modificar un disco existente en la discografía
     print("=" * 27)
@@ -129,13 +133,13 @@ def modificar_disco():
         else:
             titulo_actual = resultados[0][0]
 
-        nuevo_nombre = input("Ingrese el nuevo nombnre de artista o pulse enter si desea dejar el actual: ")
+        nuevo_nombre = input("Ingrese el nuevo nombre de artista o pulse enter si desea dejar el actual: ")
         if nuevo_nombre:
             nombre_actual = nuevo_nombre
         else:
             nombre_actual = resultados[0][1]
             
-        apellido_nuevo = input("Ingrese el nuevo nombnre de artista o pulse enter si desea dejar el actual: ")
+        apellido_nuevo = input("Ingrese el nuevo nombre de artista o pulse enter si desea dejar el actual: ")
         if apellido_nuevo:
             apellido_actual = apellido_nuevo
         else:
@@ -182,9 +186,11 @@ def modificar_disco():
         print("Disco no encontrado")
         
         
-# La función eliminar_disco() pide al usuario que ingrese el título del disco que desea eliminar.
-# Luego, busca el disco en la base de datos y pide al usuario que confirme si desea eliminar el disco.
-# Si el usuario confirma, elimina el disco de la base de datos y confirma que el disco se eliminó exitosamente.
+""" La función eliminar_disco() pide al usuario que ingrese el título del disco que desea eliminar.
+    Luego, busca el disco en la base de datos y pide al usuario que confirme si desea eliminar el disco.
+    Si el usuario confirma, elimina el disco de la base de datos y confirma que el disco se eliminó exitosamente.
+"""
+
 def eliminar_disco():
     # Eliminar un disco de la discografía
     print("=" * 27)
@@ -210,8 +216,10 @@ def eliminar_disco():
         print("Volviendo al menu...")
 
 
-# La función mostrar_discografia() muestra la discografía completa, incluyendo el título, el artista, el año,
-# el género, el precio, la imagen de la cara y la contracara, y las canciones del lado A y B de cada disco.
+""" La función mostrar_discografia() muestra la discografía completa, incluyendo el título, el artista, el año,
+    el género, el precio, la imagen de la cara y la contracara, y las canciones del lado A y B de cada disco.
+"""
+
 def mostrar_discografia():
     # Mostrar la discografía completa
     print("=" * 27)
@@ -286,9 +294,11 @@ def mostrar_discografia():
         print()
 
 
-# La función buscar_disco_por_titulo() pide al usuario que ingrese el título del disco que desea buscar.
-# Luego, busca el disco en la base de datos y muestra la información del disco, incluyendo el artista,
-# el año, el género, el precio, la imagen de la cara y la contracara, y las canciones del lado A y B. 
+""" La función buscar_disco_por_titulo() pide al usuario que ingrese el título del disco que desea buscar.
+    Luego, busca el disco en la base de datos y muestra la información del disco, incluyendo el artista,
+    el año, el género, el precio, la imagen de la cara y la contracara, y las canciones del lado A y B. 
+"""
+
 def buscar_disco_por_titulo(titulo):
     # Buscar un disco por título
     print("=" * 27)
@@ -296,7 +306,7 @@ def buscar_disco_por_titulo(titulo):
     print("=" * 27, "\n")
 
     # Pedir al usuario que ingrese el título del disco a buscar
-    
+        
     bd.cursor.execute("""
         SELECT 
             dv.titulo, 
