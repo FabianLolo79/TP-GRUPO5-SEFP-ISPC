@@ -203,7 +203,6 @@ def eliminar_disco():
         if count == 0:
             bd.cursor.execute("DELETE FROM artista WHERE idArtista = %s", (resultados[0][10],))
             bd.cnx.commit()
-            bd.cerrarConexion()
             print("Disco y artista eliminados correctamente")
         
         
