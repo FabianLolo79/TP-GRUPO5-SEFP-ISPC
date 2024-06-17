@@ -36,8 +36,10 @@ def menu():
             # Mostrar la discografía completa
             mostrar_discografia()
         elif opcion == "5":
-            # Buscar un disco por título
-            buscar_disco_por_titulo()
+            # Pedimos al usuario el título a buscar
+            titulo = input("Ingrese el titulo del disco que desea buscar: \n")
+            # Buscar un disco por título como parámetro de la función
+            buscar_disco_por_titulo(titulo)
 
         elif opcion == "6":
             # Salir del programa
